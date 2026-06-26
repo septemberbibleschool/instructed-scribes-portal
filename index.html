@@ -7,13 +7,18 @@
   <title>The Instructed Scribes | September Bible School 2026</title>
   <meta name="description" content="Register for The Instructed Scribes — September Bible School 2026 by Living The Blessed Life Ministry." />
 
-  <!-- Open Graph (for WhatsApp/Facebook sharing) -->
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"/>
+
   <meta property="og:title" content="The Instructed Scribes — September Bible School 2026" />
   <meta property="og:description" content="Join us 11–13 September 2026. Register now!" />
   <meta property="og:type" content="website" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     * { -webkit-tap-highlight-color: transparent; }
@@ -26,7 +31,6 @@
     }
     h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-    /* Floating glow orbs */
     .glow-circle {
       position: fixed;
       border-radius: 50%;
@@ -36,7 +40,7 @@
       animation: float 8s ease-in-out infinite;
       pointer-events: none;
     }
-    .glow-1 { background:#f5b301; width:250px; height:250px; top:-80px; left:-80px; }
+    .glow-1 { background:#ffd700; width:250px; height:250px; top:-80px; left:-80px; }
     .glow-2 { background:#ff6b9d; width:300px; height:300px; bottom:-120px; right:-120px; animation-delay: -3s; }
     .glow-3 { background:#4ecdc4; width:200px; height:200px; top:40%; right:-80px; animation-delay: -5s; }
 
@@ -45,41 +49,47 @@
       50% { transform: translateY(-25px); }
     }
 
-    /* Hero badge */
     .hero-badge {
       display: inline-block;
-      padding: 6px 14px;
+      padding: 12px 28px;
       border-radius: 50px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      background: #f5b301;
-      color: #0d3b3b;
-      box-shadow: 0 4px 15px rgba(245,179,1,0.4);
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 2.5px;
+      background: linear-gradient(135deg, #fff8d6, #ffe066);
+      color: #5a3e00;
+      box-shadow: 0 8px 25px rgba(255,224,102,0.6), 0 0 0 3px rgba(255,255,255,0.25);
+      text-transform: uppercase;
+      animation: badge-pulse 2.5s ease-in-out infinite;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    }
+    @keyframes badge-pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(255,224,102,0.6), 0 0 0 3px rgba(255,255,255,0.25); }
+      50% { transform: scale(1.04); box-shadow: 0 12px 35px rgba(255,224,102,0.85), 0 0 0 6px rgba(255,255,255,0.35); }
     }
 
-    /* Register button */
     .register-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(135deg, #f5b301, #e6a800);
+      background: linear-gradient(135deg, #ffffff, #fff8d6);
       color: #0d3b3b !important;
-      font-weight: 800;
-      padding: 16px 36px;
+      font-weight: 900;
+      padding: 18px 44px;
       border-radius: 50px;
-      box-shadow: 0 10px 30px rgba(245,179,1,0.4);
+      box-shadow: 0 12px 35px rgba(255,255,255,0.35), 0 0 0 3px rgba(255,224,102,0.3);
       transition: all 0.3s ease;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       text-decoration: none;
+      letter-spacing: 0.5px;
     }
     .register-btn:hover, .register-btn:active {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 15px 40px rgba(245,179,1,0.6);
+      transform: translateY(-3px) scale(1.04);
+      background: linear-gradient(135deg, #ffe066, #ffd700);
+      box-shadow: 0 18px 45px rgba(255,224,102,0.7), 0 0 0 6px rgba(255,255,255,0.4);
     }
 
-    /* Flyer image responsive */
     .flyer-img {
       width: 100%;
       max-width: 420px;
@@ -89,7 +99,6 @@
       margin: 0 auto;
     }
 
-    /* Detail rows */
     .detail-row {
       display: flex;
       align-items: flex-start;
@@ -103,22 +112,14 @@
       line-height: 1.5;
       text-align: left;
     }
-    .detail-row .ico {
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+    .detail-row .ico { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
 
-    /* Pulsing register prompt */
     @keyframes pulse-soft {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.03); }
     }
-    .pulse-prompt {
-      animation: pulse-soft 2s ease-in-out infinite;
-    }
+    .pulse-prompt { animation: pulse-soft 2s ease-in-out infinite; }
 
-    /* iPhone notch / safe area */
     @supports (padding: max(0px)) {
       body {
         padding-left: env(safe-area-inset-left);
@@ -126,12 +127,36 @@
       }
     }
 
-    /* Extra tiny phones (iPhone SE, etc.) */
+    .powered-by {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(245,179,1,0.3);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .powered-by:hover {
+      background: rgba(245,179,1,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245,179,1,0.3);
+    }
+    .powered-by .ico { color: #f5b301; }
+    .powered-by strong { color: #f5b301; }
+
     @media (max-width: 360px) {
       .flyer-img { max-width: 100%; }
       h1 { font-size: 2rem !important; }
       .detail-row { font-size: 0.85rem; padding: 10px 12px; }
-      .register-btn { padding: 14px 28px; font-size: 1rem; }
+      .register-btn { padding: 16px 32px; font-size: 1.05rem; }
+      .hero-badge { font-size: 13px; padding: 10px 20px; letter-spacing: 1.5px; }
     }
   </style>
 </head>
@@ -141,21 +166,19 @@
   <div class="glow-circle glow-2"></div>
   <div class="glow-circle glow-3"></div>
 
-  <!-- HERO SECTION -->
   <section class="relative z-10 px-4 pt-8 pb-6 text-center max-w-2xl mx-auto">
 
-    <div class="hero-badge mb-4">✨ SEPTEMBER BIBLE SCHOOL 2026 ✨</div>
+    <div class="hero-badge mb-5">✨ September Bible School 2026 ✨</div>
 
     <img src="assets/flyer.jpg" alt="The Instructed Scribes Flyer" class="flyer-img my-5" />
 
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-6 leading-tight">
       The Instructed Scribes
     </h1>
-    <p class="text-base sm:text-lg mt-2" style="color:#f5b301;">
+    <p class="text-base sm:text-lg mt-2" style="color:#ffe066;">
       A 3-Day Bible School Experience
     </p>
 
-    <!-- EVENT DETAILS -->
     <div class="mt-6 space-y-2.5">
       <div class="detail-row">
         <span class="ico">📅</span>
@@ -179,7 +202,6 @@
       </div>
     </div>
 
-    <!-- REGISTER CTA -->
     <div class="mt-8 pulse-prompt">
       <a href="register.html" class="register-btn">
         Register Now →
@@ -190,21 +212,26 @@
       It only takes 60 seconds 🙌
     </p>
 
-    <!-- MINISTERS -->
     <div class="mt-10 pt-6 border-t border-white/10">
       <p class="text-xs uppercase tracking-widest opacity-70 mb-3">Ministering</p>
       <div class="space-y-2 text-sm">
-        <p><strong style="color:#f5b301;">Rev. Jide Lawal</strong> — Guest (RBTC, Nigeria)</p>
-        <p><strong style="color:#f5b301;">Pst. A. B. Alabi</strong> — Patron</p>
-        <p><strong style="color:#f5b301;">Pst. Ezekiel Yusuf</strong> — Convener</p>
+        <p><strong style="color:#ffe066;">Rev. Jide Lawal</strong> — Guest (RBTC, Nigeria)</p>
+        <p><strong style="color:#ffe066;">Pst. A. B. Alabi</strong> — Patron</p>
+        <p><strong style="color:#ffe066;">Pst. Ezekiel Yusuf</strong> — Convener</p>
       </div>
     </div>
 
   </section>
 
-  <!-- FOOTER -->
-  <footer class="relative z-10 text-center py-6 px-4 text-xs opacity-70 border-t border-white/10 mt-4">
-    © 2026 Living The Blessed Life Ministry 💛
+  <footer class="relative z-10 text-center py-8 px-4 border-t border-white/10 mt-4">
+    <p class="text-xs opacity-70 mb-3">
+      © 2026 Living The Blessed Life Ministry 💛
+    </p>
+    <a href="https://wa.me/2348036208366?text=Hello%20Christmade%20GlobalTech,%20I%20saw%20your%20work%20on%20The%20Instructed%20Scribes%20portal."
+       target="_blank"
+       class="powered-by">
+      <span class="ico">⚡</span> Powered by <strong>Christmade GlobalTech</strong>
+    </a>
   </footer>
 
 </body>

@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Register | The Instructed Scribes</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"/>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -22,7 +29,7 @@
       z-index: 0;
       animation: float 8s ease-in-out infinite;
     }
-    .glow-1 { background:#f5b301; width:300px; height:300px; top:-100px; left:-100px; }
+    .glow-1 { background:#ffd700; width:300px; height:300px; top:-100px; left:-100px; }
     .glow-2 { background:#ff6b9d; width:350px; height:350px; bottom:-150px; right:-150px; animation-delay: -3s; }
     .glow-3 { background:#4ecdc4; width:250px; height:250px; top:40%; right:-100px; animation-delay: -5s; }
 
@@ -69,10 +76,21 @@
     }
     .form-card > * { position: relative; z-index: 1; }
 
-    .cute-field {
-      position: relative;
-      transition: all 0.3s ease;
+    .top-badge {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #fff8d6, #ffe066);
+      color: #5a3e00;
+      box-shadow: 0 6px 20px rgba(255,224,102,0.5), 0 0 0 3px rgba(255,255,255,0.2);
+      text-transform: uppercase;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.4);
     }
+
+    .cute-field { position: relative; transition: all 0.3s ease; }
     .cute-field label {
       display: flex;
       align-items: center;
@@ -97,11 +115,7 @@
       box-shadow: 0 2px 6px rgba(245,179,1,0.06);
     }
     .cute-input::placeholder { color: #b8a888; }
-
-    .cute-input:hover {
-      border-color: #f5b301;
-      background: #fff;
-    }
+    .cute-input:hover { border-color: #f5b301; background: #fff; }
     .cute-input:focus {
       outline: none;
       border-color: #f5b301;
@@ -166,17 +180,38 @@
       letter-spacing: 0.5px;
     }
     .submit-btn:hover {
-      background: linear-gradient(135deg, #f5b301, #e6a800);
+      background: linear-gradient(135deg, #ffe066, #ffd700);
       color: #0d3b3b !important;
       transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(245,179,1,0.5);
+      box-shadow: 0 15px 35px rgba(255,224,102,0.5);
     }
-    .submit-btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
+    .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
     .req { color: #ff6b6b; font-weight: bold; }
+
+    .powered-by {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(245,179,1,0.3);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .powered-by:hover {
+      background: rgba(245,179,1,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245,179,1,0.3);
+    }
+    .powered-by .ico { color: #f5b301; }
+    .powered-by strong { color: #f5b301; }
   </style>
 </head>
 <body class="py-10 px-4 relative overflow-x-hidden">
@@ -188,15 +223,12 @@
   <div class="max-w-2xl mx-auto relative z-10">
 
     <div class="text-center mb-6 text-white">
-      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-3 shadow-lg" style="background:#f5b301; color:#0d3b3b;">
-        ✨ SEPTEMBER BIBLE SCHOOL 2026 ✨
-      </div>
+      <div class="top-badge mb-3">✨ September Bible School 2026 ✨</div>
       <h1 class="text-4xl md:text-5xl font-bold">The Instructed Scribes</h1>
       <p class="opacity-90 mt-2">Fill the form below to secure your spot 🙌</p>
     </div>
 
     <div class="form-card rounded-3xl p-6 md:p-10">
-
       <form id="registerForm" class="space-y-5">
 
         <div class="section-title">👤 Personal Info</div>
@@ -291,10 +323,12 @@
           <label><span class="icon">📣</span> How did you hear about us?</label>
           <select name="heard_from" class="cute-input">
             <option value="">Select source</option>
+            <option>Formal Invitation</option>
             <option>Facebook</option>
             <option>YouTube</option>
             <option>Friend</option>
             <option>Church</option>
+            <option>WhatsApp</option>
             <option>Other</option>
           </select>
         </div>
@@ -318,9 +352,16 @@
       </form>
     </div>
 
-    <p class="text-center text-white opacity-70 text-sm mt-6">
-      © 2026 Living The Blessed Life Ministry 💛
-    </p>
+    <div class="text-center mt-6 space-y-3">
+      <p class="text-white opacity-70 text-sm">
+        © 2026 Living The Blessed Life Ministry 💛
+      </p>
+      <a href="https://wa.me/2348036208366?text=Hello%20Christmade%20GlobalTech,%20I%20saw%20your%20work%20on%20The%20Instructed%20Scribes%20portal."
+         target="_blank"
+         class="powered-by">
+        <span class="ico">⚡</span> Powered by <strong>Christmade GlobalTech</strong>
+      </a>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>

@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registration Successful | The Instructed Scribes</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"/>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -22,7 +29,7 @@
       z-index: 0;
       animation: float 8s ease-in-out infinite;
     }
-    .glow-1 { background:#f5b301; width:300px; height:300px; top:-100px; left:-100px; }
+    .glow-1 { background:#ffd700; width:300px; height:300px; top:-100px; left:-100px; }
     .glow-2 { background:#ff6b9d; width:350px; height:350px; bottom:-150px; right:-150px; animation-delay: -3s; }
     .glow-3 { background:#4ecdc4; width:250px; height:250px; top:40%; right:-100px; animation-delay: -5s; }
 
@@ -85,14 +92,14 @@
 
     .home-btn {
       background: linear-gradient(135deg, #0d3b3b, #14524f);
-      color: #f5b301;
+      color: #ffe066;
       transition: all 0.3s ease;
     }
     .home-btn:hover {
-      background: linear-gradient(135deg, #f5b301, #e6a800);
+      background: linear-gradient(135deg, #ffe066, #ffd700);
       color: #0d3b3b !important;
       transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(245,179,1,0.4);
+      box-shadow: 0 15px 35px rgba(255,224,102,0.4);
     }
 
     .whatsapp-btn {
@@ -116,6 +123,30 @@
       border: 2px dashed rgba(78,205,196,0.5);
       border-radius: 14px;
     }
+
+    .powered-by {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(245,179,1,0.3);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .powered-by:hover {
+      background: rgba(245,179,1,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245,179,1,0.3);
+    }
+    .powered-by .ico { color: #f5b301; }
+    .powered-by strong { color: #f5b301; }
   </style>
 </head>
 <body class="flex items-center justify-center px-4 py-10 relative overflow-x-hidden">
@@ -135,7 +166,7 @@
 
       <div class="text-7xl mb-4 celebrate">🎉</div>
 
-      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-4 shadow-lg" style="background:#0d3b3b; color:#f5b301;">
+      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-4 shadow-lg" style="background:#0d3b3b; color:#ffe066;">
         ✓ REGISTRATION CONFIRMED
       </div>
 
@@ -166,7 +197,7 @@
         💬 Connect with us on WhatsApp for updates:
       </p>
 
-      <a href="https://wa.me/2348036208366?text=Hello,%20I%20just%20registered%20for%20The%20Instructed%20Scribes%202026.%20Please%20add%20me%20to%20the%20updates%20list.%20Thank%20you!"
+      <a href="https://wa.me/2347031981279?text=Hello,%20I%20just%20registered%20for%20The%20Instructed%20Scribes%20of%20the%20SEPTEMBER%20BIBLE%20SCHOOL%202026.%20Please%20add%20me%20to%20the%20updates%20list.%20Thank%20you!"
          target="_blank"
          class="whatsapp-btn inline-flex items-center justify-center gap-2 font-bold py-3 px-8 rounded-full shadow-lg w-full mb-3">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
@@ -181,9 +212,16 @@
       </a>
     </div>
 
-    <p class="text-center text-white opacity-70 text-sm mt-6">
-      © 2026 Living The Blessed Life Ministry 💛
-    </p>
+    <div class="text-center mt-6 space-y-3">
+      <p class="text-white opacity-70 text-sm">
+        © 2026 Living The Blessed Life Ministry 💛
+      </p>
+      <a href="https://wa.me/2348036208366?text=Hello%20Christmade%20GlobalTech,%20I%20saw%20your%20work%20on%20The%20Instructed%20Scribes%20portal."
+         target="_blank"
+         class="powered-by">
+        <span class="ico">⚡</span> Powered by <strong>Christmade GlobalTech</strong>
+      </a>
+    </div>
   </div>
 
 </body>
