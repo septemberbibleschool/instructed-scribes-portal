@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register | The Instructed Scribes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0d3b3b 0%, #14524f 50%, #0d3b3b 100%);
+      min-height: 100vh;
+    }
+    h1, h2 { font-family: 'Playfair Display', serif; }
+
+    .glow-circle {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      z-index: 0;
+      animation: float 8s ease-in-out infinite;
+    }
+    .glow-1 { background:#f5b301; width:300px; height:300px; top:-100px; left:-100px; }
+    .glow-2 { background:#ff6b9d; width:350px; height:350px; bottom:-150px; right:-150px; animation-delay: -3s; }
+    .glow-3 { background:#4ecdc4; width:250px; height:250px; top:40%; right:-100px; animation-delay: -5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .form-card {
+      position: relative;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(245,179,1,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 90%, rgba(255,107,157,0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #fffdf7 0%, #fff8e8 50%, #fdf3e0 100%);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.35),
+        0 0 0 1px rgba(245,179,1,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      overflow: hidden;
+    }
+    .form-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 25% 25%, rgba(245,179,1,0.04) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(13,59,59,0.04) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .form-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #f5b301, #ff6b9d, #4ecdc4, #f5b301);
+      background-size: 200% 100%;
+      animation: shimmer 6s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .form-card > * { position: relative; z-index: 1; }
+
+    .cute-field {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .cute-field label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: #0d3b3b;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+    }
+    .cute-field .icon { font-size: 1.1rem; }
+
+    .cute-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid rgba(245,179,1,0.25);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(4px);
+      font-size: 0.95rem;
+      color: #0d3b3b;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(245,179,1,0.06);
+    }
+    .cute-input::placeholder { color: #b8a888; }
+
+    .cute-input:hover {
+      border-color: #f5b301;
+      background: #fff;
+    }
+    .cute-input:focus {
+      outline: none;
+      border-color: #f5b301;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(245,179,1,0.2), 0 4px 14px rgba(245,179,1,0.15);
+      transform: translateY(-1px);
+    }
+
+    select.cute-input {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='14' height='14' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 5l5 5 5-5' stroke='%230d3b3b' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #0d3b3b;
+      margin: 8px 0 12px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, #f5b301, transparent);
+      border-radius: 2px;
+    }
+
+    .cute-check-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #fff3cd, #ffe0a3);
+      border: 2px dashed #f5b301;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .cute-check-wrap:hover {
+      background: linear-gradient(135deg, #ffeac4, #ffd685);
+      transform: scale(1.01);
+    }
+    .cute-check-wrap input {
+      width: 22px;
+      height: 22px;
+      accent-color: #0d3b3b;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #0d3b3b, #14524f);
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #f5b301, #e6a800);
+      color: #0d3b3b !important;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(245,179,1,0.5);
+    }
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .req { color: #ff6b6b; font-weight: bold; }
+  </style>
+</head>
+<body class="py-10 px-4 relative overflow-x-hidden">
+
+  <div class="glow-circle glow-1"></div>
+  <div class="glow-circle glow-2"></div>
+  <div class="glow-circle glow-3"></div>
+
+  <div class="max-w-2xl mx-auto relative z-10">
+
+    <div class="text-center mb-6 text-white">
+      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-3 shadow-lg" style="background:#f5b301; color:#0d3b3b;">
+        ✨ SEPTEMBER BIBLE SCHOOL 2026 ✨
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold">The Instructed Scribes</h1>
+      <p class="opacity-90 mt-2">Fill the form below to secure your spot 🙌</p>
+    </div>
+
+    <div class="form-card rounded-3xl p-6 md:p-10">
+
+      <form id="registerForm" class="space-y-5">
+
+        <div class="section-title">👤 Personal Info</div>
+
+        <div class="cute-field">
+          <label><span class="icon">📝</span> Full Name <span class="req">*</span></label>
+          <input name="full_name" required class="cute-input" placeholder="e.g. John Doe" />
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="cute-field">
+            <label><span class="icon">📧</span> Email <span class="req">*</span></label>
+            <input type="email" name="email" required class="cute-input" placeholder="you@email.com" />
+          </div>
+          <div class="cute-field">
+            <label><span class="icon">📱</span> WhatsApp <span class="req">*</span></label>
+            <input name="phone" required class="cute-input" placeholder="08012345678" />
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="cute-field">
+            <label><span class="icon">⚧️</span> Gender <span class="req">*</span></label>
+            <select name="gender" required class="cute-input">
+              <option value="">Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="cute-field">
+            <label><span class="icon">🎂</span> Age Range <span class="req">*</span></label>
+            <select name="age_range" required class="cute-input">
+              <option value="">Select age</option>
+              <option>13–18</option>
+              <option>19–25</option>
+              <option>26–35</option>
+              <option>36–45</option>
+              <option>46+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-title">📍 Location</div>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="cute-field">
+            <label><span class="icon">🌍</span> Country <span class="req">*</span></label>
+            <input name="country" value="Nigeria" required class="cute-input" />
+          </div>
+          <div class="cute-field">
+            <label><span class="icon">🏙️</span> State <span class="req">*</span></label>
+            <input name="state" required class="cute-input" placeholder="e.g. Lagos" />
+          </div>
+          <div class="cute-field">
+            <label><span class="icon">🏘️</span> City</label>
+            <input name="city" class="cute-input" placeholder="e.g. Iju-Ishaga" />
+          </div>
+        </div>
+
+        <div class="section-title">⛪ Church Info</div>
+
+        <div class="cute-field">
+          <label><span class="icon">🏛️</span> Church Name</label>
+          <input name="church_name" class="cute-input" placeholder="Your local assembly" />
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="cute-field">
+            <label><span class="icon">🙏</span> Role in Church <span class="req">*</span></label>
+            <select name="role_in_church" required class="cute-input">
+              <option value="">Select role</option>
+              <option>Pastor</option>
+              <option>Minister</option>
+              <option>Worker</option>
+              <option>Member</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="cute-field">
+            <label><span class="icon">🎟️</span> Attendance Mode <span class="req">*</span></label>
+            <select name="attendance_mode" required class="cute-input">
+              <option value="">Select mode</option>
+              <option>Physical</option>
+              <option>Online</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-title">💌 A Little More</div>
+
+        <div class="cute-field">
+          <label><span class="icon">📣</span> How did you hear about us?</label>
+          <select name="heard_from" class="cute-input">
+            <option value="">Select source</option>
+            <option>Facebook</option>
+            <option>YouTube</option>
+            <option>Friend</option>
+            <option>Church</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="cute-field">
+          <label><span class="icon">✨</span> Prayer Request / Expectation</label>
+          <textarea name="expectation" rows="3" class="cute-input" placeholder="Share what you're believing God for..."></textarea>
+        </div>
+
+        <label class="cute-check-wrap" for="sub">
+          <input type="checkbox" name="subscribe_updates" id="sub" />
+          <span class="text-sm font-medium text-[#0d3b3b]">📩 Yes, send me future updates from Living The Blessed Life</span>
+        </label>
+
+        <button type="submit" id="submitBtn"
+          class="submit-btn w-full text-white py-4 rounded-full font-bold text-lg shadow-xl mt-2">
+          ✨ Submit Registration ✨
+        </button>
+
+        <p id="msg" class="text-center mt-3 text-sm font-medium"></p>
+      </form>
+    </div>
+
+    <p class="text-center text-white opacity-70 text-sm mt-6">
+      © 2026 Living The Blessed Life Ministry 💛
+    </p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="module" src="js/supabase.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Successful | The Instructed Scribes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0d3b3b 0%, #14524f 50%, #0d3b3b 100%);
+      min-height: 100vh;
+    }
+    h1 { font-family: 'Playfair Display', serif; }
+
+    .glow-circle {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      z-index: 0;
+      animation: float 8s ease-in-out infinite;
+    }
+    .glow-1 { background:#f5b301; width:300px; height:300px; top:-100px; left:-100px; }
+    .glow-2 { background:#ff6b9d; width:350px; height:350px; bottom:-150px; right:-150px; animation-delay: -3s; }
+    .glow-3 { background:#4ecdc4; width:250px; height:250px; top:40%; right:-100px; animation-delay: -5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .success-card {
+      position: relative;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(245,179,1,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 90%, rgba(255,107,157,0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #fffdf7 0%, #fff8e8 50%, #fdf3e0 100%);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.35),
+        0 0 0 1px rgba(245,179,1,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      overflow: hidden;
+    }
+    .success-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #f5b301, #ff6b9d, #4ecdc4, #f5b301);
+      background-size: 200% 100%;
+      animation: shimmer 6s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .success-card > * { position: relative; z-index: 1; }
+
+    .celebrate {
+      display: inline-block;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .sparkle {
+      position: absolute;
+      font-size: 1.5rem;
+      animation: spin 4s linear infinite;
+    }
+    .s1 { top: 10%; left: 8%; animation-delay: 0s; }
+    .s2 { top: 15%; right: 10%; animation-delay: -1s; }
+    .s3 { bottom: 20%; left: 12%; animation-delay: -2s; }
+    .s4 { bottom: 15%; right: 8%; animation-delay: -3s; }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg) scale(1); opacity: 0.8; }
+      50% { transform: rotate(180deg) scale(1.3); opacity: 1; }
+      100% { transform: rotate(360deg) scale(1); opacity: 0.8; }
+    }
+
+    .home-btn {
+      background: linear-gradient(135deg, #0d3b3b, #14524f);
+      color: #f5b301;
+      transition: all 0.3s ease;
+    }
+    .home-btn:hover {
+      background: linear-gradient(135deg, #f5b301, #e6a800);
+      color: #0d3b3b !important;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(245,179,1,0.4);
+    }
+
+    .whatsapp-btn {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .whatsapp-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(37,211,102,0.5);
+    }
+
+    .info-box {
+      background: rgba(245,179,1,0.12);
+      border: 2px dashed rgba(245,179,1,0.5);
+      border-radius: 14px;
+    }
+
+    .email-note {
+      background: rgba(78,205,196,0.12);
+      border: 2px dashed rgba(78,205,196,0.5);
+      border-radius: 14px;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center px-4 py-10 relative overflow-x-hidden">
+
+  <div class="glow-circle glow-1"></div>
+  <div class="glow-circle glow-2"></div>
+  <div class="glow-circle glow-3"></div>
+
+  <div class="max-w-lg w-full relative z-10">
+
+    <div class="success-card rounded-3xl p-8 md:p-10 text-center relative">
+
+      <span class="sparkle s1">✨</span>
+      <span class="sparkle s2">🌟</span>
+      <span class="sparkle s3">💫</span>
+      <span class="sparkle s4">⭐</span>
+
+      <div class="text-7xl mb-4 celebrate">🎉</div>
+
+      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-4 shadow-lg" style="background:#0d3b3b; color:#f5b301;">
+        ✓ REGISTRATION CONFIRMED
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold mb-3" style="color:#0d3b3b;">
+        You're In! 🙌
+      </h1>
+
+      <p class="text-lg text-gray-700 mb-2">
+        Welcome to <strong style="color:#0d3b3b;">The Instructed Scribes</strong>
+      </p>
+      <p class="text-sm text-gray-600 mb-6">
+        September Bible School 2026
+      </p>
+
+      <div class="info-box p-5 mb-5 text-left space-y-2 text-sm" style="color:#0d3b3b;">
+        <p>📅 <strong>11th – 13th September, 2026</strong></p>
+        <p>📍 7A Omirin Crescent, Iju-Ishaga, Lagos</p>
+        <p>🕘 Fri: 9AM–1PM • Sat: 2PM–6PM • Sun: 9AM–1PM</p>
+        <p>📺 Live: <strong>@pst.ezekielyusuf</strong> (FB & YouTube)</p>
+      </div>
+
+      <div class="email-note p-4 mb-6 text-sm" style="color:#0d3b3b;">
+        📧 A confirmation email has been sent to your inbox.<br/>
+        <span class="opacity-70 text-xs">(Please check your spam folder too!)</span>
+      </div>
+
+      <p class="text-gray-700 text-sm mb-4 font-medium">
+        💬 Connect with us on WhatsApp for updates:
+      </p>
+
+      <a href="https://wa.me/2348036208366?text=Hello,%20I%20just%20registered%20for%20The%20Instructed%20Scribes%202026.%20Please%20add%20me%20to%20the%20updates%20list.%20Thank%20you!"
+         target="_blank"
+         class="whatsapp-btn inline-flex items-center justify-center gap-2 font-bold py-3 px-8 rounded-full shadow-lg w-full mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+        </svg>
+        Chat With Us on WhatsApp
+      </a>
+
+      <a href="index.html"
+         class="home-btn inline-block font-bold py-3 px-10 rounded-full shadow-lg">
+        ← Back to Home
+      </a>
+    </div>
+
+    <p class="text-center text-white opacity-70 text-sm mt-6">
+      © 2026 Living The Blessed Life Ministry 💛
+    </p>
+  </div>
+
+</body>
+</html>
