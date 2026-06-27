@@ -29,7 +29,7 @@
       z-index: 0;
       animation: float 8s ease-in-out infinite;
     }
-    .glow-1 { background:#ffd700; width:300px; height:300px; top:-100px; left:-100px; }
+    .glow-1 { background:#f5b301; width:300px; height:300px; top:-100px; left:-100px; }
     .glow-2 { background:#ff6b9d; width:350px; height:350px; bottom:-150px; right:-150px; animation-delay: -3s; }
     .glow-3 { background:#4ecdc4; width:250px; height:250px; top:40%; right:-100px; animation-delay: -5s; }
 
@@ -37,6 +37,18 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-30px); }
     }
+
+    /* 🖼️ LOGO */
+    .site-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 0 3px rgba(245,179,1,0.25);
+      display: block;
+      margin: 0 auto 20px;
+      transition: transform 0.3s;
+    }
+    .site-logo:hover { transform: scale(1.05); }
 
     .success-card {
       position: relative;
@@ -91,15 +103,15 @@
     }
 
     .home-btn {
-      background: linear-gradient(135deg, #0d3b3b, #14524f);
-      color: #ffe066;
+      background: linear-gradient(135deg, #f5b301, #ffc94a);
+      color: #0d3b3b;
       transition: all 0.3s ease;
     }
     .home-btn:hover {
-      background: linear-gradient(135deg, #ffe066, #ffd700);
-      color: #0d3b3b !important;
+      background: linear-gradient(135deg, #0d3b3b, #14524f);
+      color: #ffc94a !important;
       transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(255,224,102,0.4);
+      box-shadow: 0 15px 35px rgba(13,59,59,0.4);
     }
 
     .whatsapp-btn {
@@ -157,6 +169,9 @@
 
   <div class="max-w-lg w-full relative z-10">
 
+    <!-- LOGO -->
+    <img src="assets/logo.png" alt="Living The Blessed Life" class="site-logo" />
+
     <div class="success-card rounded-3xl p-8 md:p-10 text-center relative">
 
       <span class="sparkle s1">✨</span>
@@ -166,7 +181,7 @@
 
       <div class="text-7xl mb-4 celebrate">🎉</div>
 
-      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-4 shadow-lg" style="background:#0d3b3b; color:#ffe066;">
+      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-4 shadow-lg" style="background:#0d3b3b; color:#ffc94a;">
         ✓ REGISTRATION CONFIRMED
       </div>
 

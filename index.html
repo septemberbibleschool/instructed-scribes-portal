@@ -40,7 +40,7 @@
       animation: float 8s ease-in-out infinite;
       pointer-events: none;
     }
-    .glow-1 { background:#ffd700; width:250px; height:250px; top:-80px; left:-80px; }
+    .glow-1 { background:#f5b301; width:250px; height:250px; top:-80px; left:-80px; }
     .glow-2 { background:#ff6b9d; width:300px; height:300px; bottom:-120px; right:-120px; animation-delay: -3s; }
     .glow-3 { background:#4ecdc4; width:200px; height:200px; top:40%; right:-80px; animation-delay: -5s; }
 
@@ -49,23 +49,59 @@
       50% { transform: translateY(-25px); }
     }
 
+    .site-logo {
+      width: 90px;
+      height: 90px;
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 0 3px rgba(245,179,1,0.25);
+      display: block;
+      margin: 0 auto 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .site-logo:hover { transform: scale(1.05); }
+    .site-logo:active { transform: scale(0.95); }
+    .site-logo.unlocking {
+      animation: pulse-unlock 0.4s ease-in-out;
+    }
+    @keyframes pulse-unlock {
+      0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 0 3px rgba(245,179,1,0.25); }
+      50% { transform: scale(1.15); box-shadow: 0 15px 40px rgba(245,179,1,0.6), 0 0 0 6px rgba(245,179,1,0.4); }
+    }
+
     .hero-badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       padding: 12px 28px;
       border-radius: 50px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 900;
-      letter-spacing: 2.5px;
-      background: linear-gradient(135deg, #fff8d6, #ffe066);
-      color: #5a3e00;
-      box-shadow: 0 8px 25px rgba(255,224,102,0.6), 0 0 0 3px rgba(255,255,255,0.25);
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #f5b301, #ffc94a);
+      color: #0d3b3b;
+      box-shadow: 0 8px 25px rgba(245,179,1,0.5), 0 0 0 3px rgba(255,255,255,0.15);
       text-transform: uppercase;
       animation: badge-pulse 2.5s ease-in-out infinite;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.4);
     }
     @keyframes badge-pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(255,224,102,0.6), 0 0 0 3px rgba(255,255,255,0.25); }
-      50% { transform: scale(1.04); box-shadow: 0 12px 35px rgba(255,224,102,0.85), 0 0 0 6px rgba(255,255,255,0.35); }
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(245,179,1,0.5), 0 0 0 3px rgba(255,255,255,0.15); }
+      50% { transform: scale(1.04); box-shadow: 0 12px 35px rgba(245,179,1,0.75), 0 0 0 6px rgba(255,255,255,0.25); }
+    }
+
+    .badge-star {
+      display: inline-block;
+      font-size: 16px;
+      color: #0d3b3b;
+      text-shadow: 0 0 2px rgba(13,59,59,0.5);
+      animation: twinkle 1.8s ease-in-out infinite;
+    }
+    .badge-star.right { animation-delay: -0.9s; }
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.3) rotate(180deg); opacity: 0.7; }
     }
 
     .register-btn {
@@ -73,12 +109,12 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(135deg, #ffffff, #fff8d6);
+      background: linear-gradient(135deg, #f5b301, #ffc94a);
       color: #0d3b3b !important;
       font-weight: 900;
       padding: 18px 44px;
       border-radius: 50px;
-      box-shadow: 0 12px 35px rgba(255,255,255,0.35), 0 0 0 3px rgba(255,224,102,0.3);
+      box-shadow: 0 12px 35px rgba(245,179,1,0.5), 0 0 0 3px rgba(255,255,255,0.2);
       transition: all 0.3s ease;
       font-size: 1.15rem;
       text-decoration: none;
@@ -86,8 +122,8 @@
     }
     .register-btn:hover, .register-btn:active {
       transform: translateY(-3px) scale(1.04);
-      background: linear-gradient(135deg, #ffe066, #ffd700);
-      box-shadow: 0 18px 45px rgba(255,224,102,0.7), 0 0 0 6px rgba(255,255,255,0.4);
+      background: linear-gradient(135deg, #ffc94a, #f5b301);
+      box-shadow: 0 18px 45px rgba(245,179,1,0.7), 0 0 0 6px rgba(255,255,255,0.3);
     }
 
     .flyer-img {
@@ -151,12 +187,39 @@
     .powered-by .ico { color: #f5b301; }
     .powered-by strong { color: #f5b301; }
 
+    /* Secret tap counter toast */
+    .secret-toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(13,59,59,0.95);
+      color: #ffc94a;
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(245,179,1,0.4);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .secret-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
     @media (max-width: 360px) {
       .flyer-img { max-width: 100%; }
+      .site-logo { width: 75px; height: 75px; }
       h1 { font-size: 2rem !important; }
       .detail-row { font-size: 0.85rem; padding: 10px 12px; }
       .register-btn { padding: 16px 32px; font-size: 1.05rem; }
-      .hero-badge { font-size: 13px; padding: 10px 20px; letter-spacing: 1.5px; }
+      .hero-badge { font-size: 12px; padding: 10px 20px; letter-spacing: 1.5px; }
     }
   </style>
 </head>
@@ -168,14 +231,21 @@
 
   <section class="relative z-10 px-4 pt-8 pb-6 text-center max-w-2xl mx-auto">
 
-    <div class="hero-badge mb-5">✨ September Bible School 2026 ✨</div>
+    <!-- LOGO (secret admin access) -->
+    <img id="siteLogo" src="assets/logo.png" alt="Living The Blessed Life" class="site-logo" />
+
+    <div class="hero-badge mb-5">
+      <span class="badge-star">✦</span>
+      <span>September Bible School 2026</span>
+      <span class="badge-star right">✦</span>
+    </div>
 
     <img src="assets/flyer.jpg" alt="The Instructed Scribes Flyer" class="flyer-img my-5" />
 
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-6 leading-tight">
       The Instructed Scribes
     </h1>
-    <p class="text-base sm:text-lg mt-2" style="color:#ffe066;">
+    <p class="text-base sm:text-lg mt-2" style="color:#ffc94a;">
       A 3-Day Bible School Experience
     </p>
 
@@ -215,9 +285,9 @@
     <div class="mt-10 pt-6 border-t border-white/10">
       <p class="text-xs uppercase tracking-widest opacity-70 mb-3">Ministering</p>
       <div class="space-y-2 text-sm">
-        <p><strong style="color:#ffe066;">Rev. Jide Lawal</strong> — Guest (RBTC, Nigeria)</p>
-        <p><strong style="color:#ffe066;">Pst. A. B. Alabi</strong> — Patron</p>
-        <p><strong style="color:#ffe066;">Pst. Ezekiel Yusuf</strong> — Convener</p>
+        <p><strong style="color:#ffc94a;">Rev. Jide Lawal</strong> — Guest (RBTC, Nigeria)</p>
+        <p><strong style="color:#ffc94a;">Pst. A. B. Alabi</strong> — Patron</p>
+        <p><strong style="color:#ffc94a;">Pst. Ezekiel Yusuf</strong> — Convener</p>
       </div>
     </div>
 
@@ -233,6 +303,47 @@
       <span class="ico">⚡</span> Powered by <strong>Christmade GlobalTech</strong>
     </a>
   </footer>
+
+  <!-- Secret toast notification -->
+  <div id="secretToast" class="secret-toast"></div>
+
+  <!-- 🤫 SECRET ADMIN ACCESS — Click logo 6 times -->
+  <script>
+    (function() {
+      const logo = document.getElementById("siteLogo");
+      const toast = document.getElementById("secretToast");
+      let taps = 0;
+      let resetTimer = null;
+
+      if (!logo) return;
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toast._hideTimer);
+        toast._hideTimer = setTimeout(() => toast.classList.remove("show"), 1500);
+      }
+
+      logo.addEventListener("click", () => {
+        taps++;
+        logo.classList.remove("unlocking");
+        void logo.offsetWidth; // restart animation
+        logo.classList.add("unlocking");
+
+        // Reset counter if user stops tapping for 2 seconds
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => { taps = 0; }, 2000);
+
+        if (taps >= 6) {
+          taps = 0;
+          showToast("🔐 Opening admin...");
+          setTimeout(() => { window.location.href = "admin.html"; }, 600);
+        } else if (taps >= 3) {
+          showToast(`${6 - taps} more...`);
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
