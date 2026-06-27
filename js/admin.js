@@ -53,7 +53,7 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 // === LOAD DATA ===
 async function loadRegistrations() {
   const tbody = document.getElementById("tableBody");
-  tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-gray-500">⏳ Loading...</td></tr>`;
+  tbody.innerHTML = `<tr><td colspan="14" class="text-center py-8 text-gray-500">⏳ Loading...</td></tr>`;
 
   const { data, error } = await supabase
     .from("registrations")
@@ -61,7 +61,7 @@ async function loadRegistrations() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-red-500">❌ Error: ${error.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="14" class="text-center py-8 text-red-500">❌ Error: ${error.message}</td></tr>`;
     return;
   }
 
@@ -75,11 +75,23 @@ function renderTable(rows) {
   const tbody = document.getElementById("tableBody");
 
   if (rows.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-gray-500">No registrations found 🤷</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="14" class="text-center py-8 text-gray-500">No registrations found 🤷</td></tr>`;
     return;
   }
 
-  tbody.innerHTML = rows.map((r, i) => `
+  tbody.innerHTML = rows.map((r, i) => {
+    const expectationFull = r.expectation || "";
+    const expectationShort = expectationFull.length > 40
+      ? expectationFull.substring(0, 40) + "..."
+      : expectationFull;
+
+    const expectationCell = expectationFull
+      ? `<button class="btn-view-expectation" data-name="${escapeHtml(r.full_name)}" data-text="${escapeHtml(expectationFull)}" title="Click to see full text">
+           💬 ${escapeHtml(expectationShort)}
+         </button>`
+      : `<span class="text-gray-400 italic text-xs">— none —</span>`;
+
+    return `
     <tr data-id="${r.id}">
       <td class="font-bold">${i + 1}</td>
       <td class="font-semibold">${escapeHtml(r.full_name)}</td>
@@ -92,6 +104,7 @@ function renderTable(rows) {
       <td>${escapeHtml(r.role_in_church || "-")}</td>
       <td><span class="badge badge-${(r.attendance_mode || "").toLowerCase()}">${escapeHtml(r.attendance_mode || "-")}</span></td>
       <td>${escapeHtml(r.heard_from || "-")}</td>
+      <td>${expectationCell}</td>
       <td class="whitespace-nowrap text-xs text-gray-600">${formatDate(r.created_at)}</td>
       <td>
         <button class="btn-delete-row" data-id="${r.id}" data-name="${escapeHtml(r.full_name)}">
@@ -99,13 +112,38 @@ function renderTable(rows) {
         </button>
       </td>
     </tr>
-  `).join("");
+  `;
+  }).join("");
 
-  // Attach delete handlers to each row
   document.querySelectorAll(".btn-delete-row").forEach(btn => {
     btn.addEventListener("click", handleDeleteRow);
   });
+
+  document.querySelectorAll(".btn-view-expectation").forEach(btn => {
+    btn.addEventListener("click", handleViewExpectation);
+  });
 }
+
+// === VIEW FULL EXPECTATION ===
+function handleViewExpectation(e) {
+  const name = e.currentTarget.getAttribute("data-name");
+  const text = e.currentTarget.getAttribute("data-text");
+
+  const modal = document.getElementById("expectationModal");
+  document.getElementById("modalName").textContent = name;
+  document.getElementById("modalText").textContent = text;
+  modal.style.display = "flex";
+}
+
+document.getElementById("closeModalBtn")?.addEventListener("click", () => {
+  document.getElementById("expectationModal").style.display = "none";
+});
+
+document.getElementById("expectationModal")?.addEventListener("click", (e) => {
+  if (e.target.id === "expectationModal") {
+    e.target.style.display = "none";
+  }
+});
 
 // === DELETE SINGLE ROW ===
 async function handleDeleteRow(e) {
@@ -127,7 +165,6 @@ async function handleDeleteRow(e) {
     return;
   }
 
-  // Remove from local state + re-render
   allRegistrations = allRegistrations.filter(r => r.id !== id);
   applyFilters();
   updateStats(allRegistrations);
@@ -200,7 +237,8 @@ function applyFilters() {
       (r.full_name || "").toLowerCase().includes(q) ||
       (r.email || "").toLowerCase().includes(q) ||
       (r.phone || "").toLowerCase().includes(q) ||
-      (r.church_name || "").toLowerCase().includes(q);
+      (r.church_name || "").toLowerCase().includes(q) ||
+      (r.expectation || "").toLowerCase().includes(q);
     const matchMode = !mode || r.attendance_mode === mode;
     const matchRole = !role || r.role_in_church === role;
     return matchSearch && matchMode && matchRole;
@@ -219,7 +257,7 @@ document.getElementById("exportBtn").addEventListener("click", () => {
     return;
   }
 
-  const headers = ["#", "Full Name", "Email", "Phone", "Gender", "Age Range", "Country", "State", "City", "Church Name", "Role", "Attendance Mode", "Heard From", "Expectation", "Subscribed", "Registered At"];
+  const headers = ["#", "Full Name", "Email", "Phone", "Gender", "Age Range", "Country", "State", "City", "Church Name", "Role", "Attendance Mode", "Heard From", "Prayer Request / Expectation", "Subscribed", "Registered At"];
   const rows = allRegistrations.map((r, i) => [
     i + 1,
     r.full_name,

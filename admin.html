@@ -80,13 +80,8 @@
       box-shadow: 0 0 0 3px rgba(245,179,1,0.2);
     }
 
-    /* 👁️ Password input wrapper */
-    .password-wrap {
-      position: relative;
-    }
-    .password-wrap .input-field {
-      padding-right: 50px;
-    }
+    .password-wrap { position: relative; }
+    .password-wrap .input-field { padding-right: 50px; }
     .toggle-eye {
       position: absolute;
       right: 12px;
@@ -102,10 +97,7 @@
       color: #0d3b3b;
       opacity: 0.6;
     }
-    .toggle-eye:hover {
-      opacity: 1;
-      background: rgba(245,179,1,0.15);
-    }
+    .toggle-eye:hover { opacity: 1; background: rgba(245,179,1,0.15); }
     .toggle-eye:focus { outline: none; }
 
     .btn-primary {
@@ -154,6 +146,28 @@
       background: #dc2626;
       color: #fff;
       transform: scale(1.05);
+    }
+
+    .btn-view-expectation {
+      background: rgba(78,205,196,0.15);
+      color: #0d6e68;
+      border: 1px solid rgba(78,205,196,0.4);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+      max-width: 240px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .btn-view-expectation:hover {
+      background: #4ecdc4;
+      color: #fff;
+      transform: scale(1.02);
     }
 
     table { border-collapse: collapse; width: 100%; }
@@ -220,6 +234,70 @@
     }
     .powered-by-light .ico { color: #f5b301; }
     .powered-by-light strong { color: #0d3b3b; }
+
+    /* MODAL for full prayer/expectation */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    .modal-card {
+      background: #fffdf7;
+      border-radius: 22px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      position: relative;
+      color: #0d3b3b;
+    }
+    .modal-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #f5b301, #ff6b9d, #4ecdc4, #f5b301);
+      border-radius: 22px 22px 0 0;
+    }
+    .modal-header {
+      padding: 25px 25px 15px;
+      border-bottom: 1px solid rgba(13,59,59,0.1);
+    }
+    .modal-body {
+      padding: 20px 25px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      color: #333;
+    }
+    .modal-footer {
+      padding: 15px 25px 25px;
+      text-align: right;
+    }
+    .modal-close-btn {
+      background: linear-gradient(135deg, #0d3b3b, #14524f);
+      color: #ffc94a;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+    .modal-close-btn:hover {
+      background: linear-gradient(135deg, #f5b301, #ffc94a);
+      color: #0d3b3b;
+    }
   </style>
 </head>
 <body class="text-white py-6 px-4">
@@ -236,7 +314,6 @@
       <h1 class="text-3xl font-bold mb-2">Admin Access</h1>
       <p class="text-sm text-gray-600 mb-6">Enter the admin password to continue</p>
 
-      <!-- Password with eye toggle -->
       <div class="password-wrap mb-3">
         <input type="password" id="passwordInput" class="input-field" placeholder="Enter password" autofocus />
         <button type="button" id="toggleEye" class="toggle-eye" title="Show/hide password" aria-label="Toggle password">
@@ -311,7 +388,7 @@
 
     <div class="glass-card rounded-2xl p-4 mb-4" style="color:#0d3b3b;">
       <div class="grid md:grid-cols-3 gap-3">
-        <input type="text" id="searchInput" placeholder="🔍 Search name, email, phone..." class="input-field" />
+        <input type="text" id="searchInput" placeholder="🔍 Search name, email, phone, prayer..." class="input-field" />
         <select id="modeFilter" class="input-field">
           <option value="">All Attendance</option>
           <option value="Physical">Physical</option>
@@ -344,12 +421,13 @@
               <th>Role</th>
               <th>Mode</th>
               <th>Source</th>
+              <th>Prayer / Expectation</th>
               <th>Date</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody id="tableBody">
-            <tr><td colspan="13" class="text-center py-8 text-gray-500">Loading...</td></tr>
+            <tr><td colspan="14" class="text-center py-8 text-gray-500">Loading...</td></tr>
           </tbody>
         </table>
       </div>
@@ -367,7 +445,20 @@
     </div>
   </div>
 
-  <!-- Inline script for password toggle (so it works before module loads) -->
+  <!-- MODAL for Prayer/Expectation -->
+  <div id="expectationModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <p class="text-xs uppercase tracking-widest opacity-70">Prayer Request / Expectation from</p>
+        <h2 id="modalName" class="text-2xl font-bold mt-1"></h2>
+      </div>
+      <div id="modalText" class="modal-body"></div>
+      <div class="modal-footer">
+        <button id="closeModalBtn" class="modal-close-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const eye = document.getElementById("toggleEye");
